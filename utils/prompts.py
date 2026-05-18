@@ -58,3 +58,55 @@ FORMAT (follow exactly):
 - Outcome 2
 - Outcome 3
 """
+
+
+def get_quiz_prompt(topic: str, level: str, lesson_content: str) -> str:
+    return f"""
+You are an expert tutor. Based on the lesson below, generate a 5-question multiple choice quiz.
+
+Topic: {topic}
+Level: {level}
+
+Lesson:
+{lesson_content}
+
+RULES:
+- Each question must test understanding, not just memorization.
+- Questions should be based strictly on the lesson content above.
+- Each question has exactly 4 options labeled A, B, C, D.
+- Only one option is correct.
+- Vary the difficulty slightly across questions.
+- Do not repeat similar questions.
+- Return ONLY valid JSON. No explanation, no markdown, no code fences.
+
+Return this exact JSON structure:
+[
+  {{
+    "question": "Question text here?",
+    "options": {{
+      "A": "First option",
+      "B": "Second option",
+      "C": "Third option",
+      "D": "Fourth option"
+    }},
+    "answer": "A",
+    "explanation": "Brief explanation of why this is correct and others are wrong."
+  }}
+]
+"""
+
+
+def get_explanation_prompt(question: str, user_answer: str, correct_answer: str, explanation: str) -> str:
+    return f"""
+A student answered a quiz question. Give a short, factual response — no encouragement, no filler phrases.
+
+Question: {question}
+Student's answer: {user_answer}
+Correct answer: {correct_answer}
+Explanation: {explanation}
+
+If correct: Confirm it's correct and state why in 1 sentence.
+If wrong: State what the correct answer is and why in 1-2 sentences. Do not say things like "don't worry", "great try", or "easy mistake". Just explain the fact.
+
+No bullet points. Plain prose only.
+"""
