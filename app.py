@@ -20,7 +20,7 @@ html, body, [class*="css"], .stMarkdown, p, div, span, label {
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
 section[data-testid="stMain"] > div {
-    background: #faf8f5 !important;
+    background: #FFFCF0 !important;
 }
 .block-container {
     padding-top: 3rem !important;
@@ -42,50 +42,50 @@ section[data-testid="stMain"] > div {
     font-family: 'DM Serif Display', serif !important;
     font-size: 34px !important;
     font-weight: 400 !important;
-    color: #1a1714 !important;
+    color: #6B2D2D !important;
     margin: 0 0 8px 0 !important;
     letter-spacing: -0.3px !important;
     line-height: 1.2 !important;
     border-bottom: none !important;
     padding-bottom: 0 !important;
 }
-.page-desc { font-size: 15px; color: #8c8070; margin: 0; font-weight: 400; }
+.page-desc { font-size: 15px; color: #C47A7A; margin: 0; font-weight: 400; }
 
 /* Stats */
 .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
-.stat-box { background: white; border: 1px solid #e8e0d5; border-radius: 12px; padding: 18px 20px; }
-.stat-num { font-family: 'DM Serif Display', serif !important; font-size: 28px; font-weight: 400; color: #1a1714; line-height: 1; }
-.stat-lbl { font-size: 12px; color: #b0a090; margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+.stat-box { background: #fff; border: 1px solid #f0d0d0; border-radius: 12px; padding: 18px 20px; }
+.stat-num { font-family: 'DM Serif Display', serif !important; font-size: 28px; font-weight: 400; color: #A94A4A; line-height: 1; }
+.stat-lbl { font-size: 12px; color: #C47A7A; margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
 
 /* Section label */
-.section-label { font-size: 11px; font-weight: 600; color: #b0a090; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+.section-label { font-size: 11px; font-weight: 600; color: #C47A7A; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
 
 /* Inputs */
-.stTextInput > label { font-size: 13px !important; font-weight: 500 !important; color: #4a4035 !important; }
+.stTextInput > label { font-size: 13px !important; font-weight: 500 !important; color: #6B2D2D !important; }
 .stTextInput > div > div > input {
-    border-radius: 9px !important; border: 1px solid #ddd5c8 !important;
+    border-radius: 9px !important; border: 1px solid #e8b8b8 !important;
     padding: 11px 14px !important; font-size: 14px !important;
-    font-family: 'DM Sans', sans-serif !important; color: #1a1714 !important; background: white !important;
+    font-family: 'DM Sans', sans-serif !important; color: #3D2020 !important; background: #fff !important;
 }
-.stTextInput > div > div > input:focus { border-color: #c9a96e !important; box-shadow: 0 0 0 3px rgba(201,169,110,0.12) !important; }
-.stTextInput > div > div > input::placeholder { color: #c4b8aa !important; }
-.stSelectbox > label { font-size: 13px !important; font-weight: 500 !important; color: #4a4035 !important; }
-.stSelectbox > div > div { border-radius: 9px !important; border: 1px solid #ddd5c8 !important; background: white !important; font-size: 14px !important; }
+.stTextInput > div > div > input:focus { border-color: #A94A4A !important; box-shadow: 0 0 0 3px rgba(169,74,74,0.12) !important; }
+.stTextInput > div > div > input::placeholder { color: #d4a0a0 !important; }
+.stSelectbox > label { font-size: 13px !important; font-weight: 500 !important; color: #6B2D2D !important; }
+.stSelectbox > div > div { border-radius: 9px !important; border: 1px solid #e8b8b8 !important; background: #fff !important; font-size: 14px !important; }
 
 /* Primary button */
 .stButton > button[kind="primary"] {
-    background: #1a1714 !important; color: #fdf9f6 !important; border: none !important;
+    background: #A94A4A !important; color: #FFF6DA !important; border: none !important;
     border-radius: 9px !important; padding: 11px 26px !important;
     font-size: 14px !important; font-weight: 600 !important; font-family: 'DM Sans', sans-serif !important;
 }
-.stButton > button[kind="primary"]:hover { background: #2e2825 !important; }
+.stButton > button[kind="primary"]:hover { background: #6B2D2D !important; }
 
 /* Secondary buttons */
 .stButton > button {
-    background: transparent !important; border: 1px solid #e0d8ce !important;
-    color: #b0a090 !important; border-radius: 6px !important; font-size: 13px !important; font-weight: 400 !important;
+    background: transparent !important; border: 1px solid #e8b8b8 !important;
+    color: #C47A7A !important; border-radius: 6px !important; font-size: 13px !important; font-weight: 400 !important;
 }
-.stButton > button:hover { border-color: #c9a96e !important; color: #c9a96e !important; background: transparent !important; }
+.stButton > button:hover { border-color: #A94A4A !important; color: #A94A4A !important; background: transparent !important; }
 
 /* Badges */
 .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 5px; letter-spacing: 0.3px; }
@@ -94,43 +94,43 @@ section[data-testid="stMain"] > div {
 .badge-a { background: #fdf0ee; color: #8a3020; border: 1px solid #f0c8c0; }
 
 /* History topic */
-.hist-topic { font-weight: 500; color: #1a1714; font-size: 14px; }
+.hist-topic { font-weight: 500; color: #3D2020; font-size: 14px; }
 
 /* Now studying heading */
 .now-learning-bar { text-align: center; padding: 32px 0 0 0; margin-bottom: 32px; }
-.now-label { display: block; font-size: 11px; font-weight: 600; color: #b0a090; text-transform: uppercase; letter-spacing: 1.6px; margin-bottom: 10px; }
-.now-topic { display: block; font-family: 'DM Serif Display', serif; font-size: 36px; font-weight: 400; color: #1a1714; letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 16px; }
-.now-learning-bar::after { content: ''; display: block; width: 60px; height: 2px; background: #c9a96e; margin: 0 auto; border-radius: 2px; }
+.now-label { display: block; font-size: 11px; font-weight: 600; color: #C47A7A; text-transform: uppercase; letter-spacing: 1.6px; margin-bottom: 10px; }
+.now-topic { display: block; font-family: 'DM Serif Display', serif; font-size: 36px; font-weight: 400; color: #6B2D2D; letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 16px; }
+.now-learning-bar::after { content: ''; display: block; width: 60px; height: 2px; background: #A94A4A; margin: 0 auto; border-radius: 2px; }
 
 /* Lesson typography */
-.stMarkdown h1 { font-family: 'DM Serif Display', serif !important; font-size: 30px !important; font-weight: 400 !important; color: #1a1714 !important; margin-top: 36px !important; border-bottom: 1px solid #ede6db !important; padding-bottom: 10px !important; }
-.stMarkdown h2 { font-family: 'DM Serif Display', serif !important; font-size: 24px !important; font-weight: 400 !important; color: #1a1714 !important; margin-top: 32px !important; }
-.stMarkdown h3 { font-size: 16px !important; font-weight: 600 !important; color: #3d3530 !important; margin-top: 22px !important; text-transform: none !important; }
-.stMarkdown p { font-size: 15px !important; color: #3d3530 !important; line-height: 1.9 !important; }
-.stMarkdown li { font-size: 15px !important; color: #3d3530 !important; line-height: 1.8 !important; margin-bottom: 6px !important; }
-.stMarkdown strong { color: #1a1714 !important; font-weight: 600 !important; }
-.stMarkdown code { background: #f2ede6 !important; color: #5a3e28 !important; border-radius: 4px !important; padding: 2px 6px !important; font-size: 13px !important; }
-.stMarkdown pre { background: #1e1b18 !important; border-radius: 10px !important; padding: 18px 22px !important; }
-.stMarkdown pre code { background: transparent !important; color: #e8dfd4 !important; font-size: 13px !important; padding: 0 !important; }
+.stMarkdown h1 { font-family: 'DM Serif Display', serif !important; font-size: 30px !important; font-weight: 400 !important; color: #6B2D2D !important; margin-top: 36px !important; border-bottom: 1px solid #f0d0d0 !important; padding-bottom: 10px !important; }
+.stMarkdown h2 { font-family: 'DM Serif Display', serif !important; font-size: 24px !important; font-weight: 400 !important; color: #6B2D2D !important; margin-top: 32px !important; }
+.stMarkdown h3 { font-size: 16px !important; font-weight: 600 !important; color: #3D2020 !important; margin-top: 22px !important; text-transform: none !important; }
+.stMarkdown p { font-size: 15px !important; color: #3D2020 !important; line-height: 1.9 !important; }
+.stMarkdown li { font-size: 15px !important; color: #3D2020 !important; line-height: 1.8 !important; margin-bottom: 6px !important; }
+.stMarkdown strong { color: #6B2D2D !important; font-weight: 600 !important; }
+.stMarkdown code { background: #fde8e8 !important; color: #6B2D2D !important; border-radius: 4px !important; padding: 2px 6px !important; font-size: 13px !important; }
+.stMarkdown pre { background: #3D2020 !important; border-radius: 10px !important; padding: 18px 22px !important; }
+.stMarkdown pre code { background: transparent !important; color: #FFF6DA !important; font-size: 13px !important; padding: 0 !important; }
 
 /* Quiz card */
 .quiz-card {
-    background: white; border: 1px solid #e8e0d5; border-radius: 14px;
+    background: #fff; border: 1px solid #f0d0d0; border-radius: 14px;
     padding: 22px 26px 16px 26px; margin-bottom: 4px;
 }
-.q-number { font-size: 11px; font-weight: 600; color: #b0a090; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
-.q-text { font-size: 16px; font-weight: 500; color: #1a1714; line-height: 1.6; }
+.q-number { font-size: 11px; font-weight: 600; color: #C47A7A; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.q-text { font-size: 16px; font-weight: 500; color: #3D2020; line-height: 1.6; }
 
 /* Score box */
-.score-box { text-align: center; padding: 40px 20px; background: white; border: 1px solid #e8e0d5; border-radius: 16px; margin: 24px 0; }
-.score-num { font-family: 'DM Serif Display', serif; font-size: 64px; font-weight: 400; color: #1a1714; line-height: 1; }
-.score-label { font-size: 14px; color: #8c8070; margin-top: 8px; }
-.score-msg { font-size: 16px; color: #4a4035; margin-top: 16px; font-weight: 500; }
+.score-box { text-align: center; padding: 40px 20px; background: #fff; border: 1px solid #f0d0d0; border-radius: 16px; margin: 24px 0; }
+.score-num { font-family: 'DM Serif Display', serif; font-size: 64px; font-weight: 400; color: #A94A4A; line-height: 1; }
+.score-label { font-size: 14px; color: #C47A7A; margin-top: 8px; }
+.score-msg { font-size: 16px; color: #3D2020; margin-top: 16px; font-weight: 500; }
 
 /* Quiz header */
 .quiz-header { text-align: center; padding: 32px 0 24px 0; }
-.quiz-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1714; margin-bottom: 6px; }
-.quiz-sub { font-size: 14px; color: #8c8070; }
+.quiz-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #6B2D2D; margin-bottom: 6px; }
+.quiz-sub { font-size: 14px; color: #C47A7A; }
 
 .stAlert { border-radius: 10px !important; font-size: 14px !important; }
 </style>
@@ -186,7 +186,7 @@ if history:
                 st.markdown('<span class="badge ' + badge_cls + '">' + item["level"] + '</span>', unsafe_allow_html=True)
             with col_c:
                 score_display = f"{item['score']}%" if item.get("score") is not None else "—"
-                st.markdown(f'<span style="font-size:13px;color:#8c8070">{score_display}</span>', unsafe_allow_html=True)
+                st.markdown(f'<span style="font-size:13px;color:#C47A7A">{score_display}</span>', unsafe_allow_html=True)
             with col_d:
                 clicked = st.button("↩", key=f"reload_{item['topic']}_{item['level']}")
             if clicked:
