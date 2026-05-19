@@ -125,16 +125,49 @@ section[data-testid="stMain"] > div {
 .score-box { text-align: center; padding: 40px 20px; background: #fff; border: 1px solid #f0d0d0; border-radius: 16px; margin: 24px 0; }
 .score-num { font-family: 'DM Serif Display', serif; font-size: 64px; font-weight: 400; color: #A94A4A; line-height: 1; }
 .score-label { font-size: 14px; color: #C47A7A; margin-top: 8px; }
-.score-msg { font-size: 16px; color: #3D2020; margin-top: 16px; font-weight: 500; }
 
 /* Quiz header */
 .quiz-header { text-align: center; padding: 32px 0 24px 0; }
 .quiz-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #6B2D2D; margin-bottom: 6px; }
 .quiz-sub { font-size: 14px; color: #C47A7A; }
 
+/* Adaptive feedback — inside score box */
+.adaptive-divider { width: 40px; height: 1px; background: #f0d0d0; margin: 20px auto 18px auto; }
+.adaptive-title { font-size: 13px; font-weight: 600; color: #6B2D2D; margin-bottom: 6px; }
+.adaptive-desc { font-size: 13px; color: #9a6a6a; line-height: 1.7; max-width: 460px; margin: 0 auto; }
+
 .stAlert { border-radius: 10px !important; font-size: 14px !important; }
 </style>
 """, unsafe_allow_html=True)
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+LEVELS = ["Beginner", "Intermediate", "Advanced"]
+
+def level_down(level: str) -> str | None:
+    """Return one level easier, or None if already at the bottom."""
+    idx = LEVELS.index(level)
+    return LEVELS[idx - 1] if idx > 0 else None
+
+def level_up(level: str) -> str | None:
+    """Return one level harder, or None if already at the top."""
+    idx = LEVELS.index(level)
+    return LEVELS[idx + 1] if idx < len(LEVELS) - 1 else None
+
+def load_lesson(topic: str, level: str):
+    """Generate a lesson and reset all quiz state."""
+    with st.spinner(f"Generating your lesson on **{topic}** at {level} level..."):
+        lesson = generate_lesson(topic, level.lower())
+    st.session_state["lesson"] = lesson
+    st.session_state["topic"] = topic
+    st.session_state["level"] = level
+    st.session_state["quiz"] = None
+    st.session_state["quiz_answers"] = {}
+    st.session_state["quiz_submitted"] = False
+    if "history" not in st.session_state:
+        st.session_state["history"] = []
+    if not any(h["topic"] == topic and h["level"] == level for h in st.session_state["history"]):
+        st.session_state["history"].append({"topic": topic, "level": level, "score": None})
 
 
 # ── Page header ───────────────────────────────────────────────────────────────
@@ -166,67 +199,16 @@ col1, col2 = st.columns([3, 1])
 with col1:
     topic = st.text_input("Topic", placeholder="e.g. Python lists, How neural networks work, SQL JOINs", max_chars=100)
 with col2:
-    level = st.selectbox("Level", ["Beginner", "Intermediate", "Advanced"])
+    level = st.selectbox("Level", LEVELS)
 
 generate_btn = st.button("Generate lesson", type="primary")
-
-
-# ── History box ───────────────────────────────────────────────────────────────
-history = st.session_state.get("history", [])
-if history:
-    with st.container(border=True):
-        st.markdown('<div class="section-label" style="margin-top:0;margin-bottom:12px">Recent lessons</div>', unsafe_allow_html=True)
-        for item in reversed(history[-5:]):
-            lvl = item["level"].lower()
-            badge_cls = {"beginner": "badge-b", "intermediate": "badge-i", "advanced": "badge-a"}.get(lvl, "badge-b")
-            col_a, col_b, col_c, col_d = st.columns([4, 2, 1, 1])
-            with col_a:
-                st.markdown('<span class="hist-topic">' + item["topic"] + '</span>', unsafe_allow_html=True)
-            with col_b:
-                st.markdown('<span class="badge ' + badge_cls + '">' + item["level"] + '</span>', unsafe_allow_html=True)
-            with col_c:
-                score_display = f"{item['score']}%" if item.get("score") is not None else "—"
-                st.markdown(f'<span style="font-size:13px;color:#C47A7A">{score_display}</span>', unsafe_allow_html=True)
-            with col_d:
-                clicked = st.button("↩", key=f"reload_{item['topic']}_{item['level']}")
-            if clicked:
-                st.session_state["reload_topic"] = item["topic"]
-                st.session_state["reload_level"] = item["level"]
-                st.rerun()
-
-
-# ── Handle history reload ─────────────────────────────────────────────────────
-if "reload_topic" in st.session_state:
-    topic_to_load = st.session_state.pop("reload_topic")
-    level_to_load = st.session_state.pop("reload_level")
-    with st.spinner(f"Loading lesson on **{topic_to_load}**..."):
-        lesson = generate_lesson(topic_to_load, level_to_load.lower())
-    st.session_state["lesson"] = lesson
-    st.session_state["topic"] = topic_to_load
-    st.session_state["level"] = level_to_load
-    st.session_state["quiz"] = None
-    st.session_state["quiz_answers"] = {}
-    st.session_state["quiz_submitted"] = False
-    st.rerun()
-
 
 # ── Generate lesson ───────────────────────────────────────────────────────────
 if generate_btn:
     if not topic.strip():
         st.warning("Please enter a topic to continue.")
     else:
-        with st.spinner(f"Generating your lesson on **{topic}**..."):
-            lesson = generate_lesson(topic, level.lower())
-        st.session_state["lesson"] = lesson
-        st.session_state["topic"] = topic
-        st.session_state["level"] = level
-        st.session_state["quiz"] = None
-        st.session_state["quiz_answers"] = {}
-        st.session_state["quiz_submitted"] = False
-        if "history" not in st.session_state:
-            st.session_state["history"] = []
-        if not any(h["topic"] == topic and h["level"] == level for h in st.session_state["history"]):
-            st.session_state["history"].append({"topic": topic, "level": level, "score": None})
+        load_lesson(topic, level)
         st.rerun()
 
 
@@ -249,25 +231,76 @@ if "lesson" in st.session_state:
     if st.session_state.get("quiz_submitted"):
         quiz = st.session_state["quiz"]
         answers = st.session_state["quiz_answers"]
+        current_topic = st.session_state["topic"]
+        current_level = st.session_state["level"]
+
         correct = sum(1 for i, q in enumerate(quiz) if answers.get(i) == q["answer"])
         total = len(quiz)
         pct = round((correct / total) * 100)
 
+        # ── Score + adaptive feedback (single box) ────────────────────────────
+        easier = level_down(current_level)
+        harder = level_up(current_level)
+
         if pct >= 80:
-            msg = "Excellent work! You've got a strong grasp of this topic. 🎯"
+            adaptive_title = "You've mastered this."
+            adaptive_desc = (
+                f"80%+ is a strong result. Level up to <strong>{harder}</strong> for a harder challenge, or try a brand new topic entirely."
+                if harder else
+                "You've completed the Advanced level. Try a completely new topic to keep the momentum going."
+            )
         elif pct >= 60:
-            msg = "Good effort! Review the explanations below to strengthen your understanding."
+            adaptive_title = "Good grasp. Ready for the next level?"
+            adaptive_desc = (
+                f"You scored in the 60–79% range — solid understanding with room to grow. Push yourself with the <strong>{harder}</strong> version, or retake to hit 80%+."
+                if harder else
+                "You're at the top level already. Retake the quiz to push for 80%+."
+            )
         else:
-            msg = "Keep going — review the lesson and try again to solidify the concepts."
+            adaptive_title = "This topic needs more work."
+            adaptive_desc = (
+                f"A score under 60% usually means the concepts need more time to settle. Try the <strong>{easier}</strong> version — same topic, less assumed knowledge."
+                if easier else
+                "You're at Beginner level already. Re-read the lesson carefully and try the quiz again."
+            )
 
         st.markdown(f"""
         <div class="score-box">
             <div class="score-num">{pct}%</div>
             <div class="score-label">{correct} of {total} correct</div>
-            <div class="score-msg">{msg}</div>
+            <div class="adaptive-divider"></div>
+            <div class="adaptive-title">{adaptive_title}</div>
+            <div class="adaptive-desc">{adaptive_desc}</div>
         </div>
         """, unsafe_allow_html=True)
 
+        # ── Action buttons — both equal secondary style ────────────────────────
+        target_level = harder if pct >= 60 else easier
+        target_label = (f"Try {target_level} level") if target_level else None
+
+        btn_cols = st.columns([1, 1, 2])
+        if target_label:
+            with btn_cols[0]:
+                if st.button(target_label):
+                    load_lesson(current_topic, target_level)
+                    st.rerun()
+            with btn_cols[1]:
+                if st.button("Retake quiz"):
+                    st.session_state["quiz"] = None
+                    st.session_state["quiz_answers"] = {}
+                    st.session_state["quiz_submitted"] = False
+                    st.rerun()
+        else:
+            with btn_cols[0]:
+                if st.button("Retake quiz"):
+                    st.session_state["quiz"] = None
+                    st.session_state["quiz_answers"] = {}
+                    st.session_state["quiz_submitted"] = False
+                    st.rerun()
+
+        st.markdown("---")
+
+        # ── Per-question review ───────────────────────────────────────────────
         for i, q in enumerate(quiz):
             user_ans = answers.get(i)
             with st.container(border=True):
@@ -289,17 +322,11 @@ if "lesson" in st.session_state:
                 explanation = explain_answer(q["question"], user_ans, q["answer"], q["explanation"])
                 st.info(explanation)
 
-        # Save score
+        # Save score to history
         for h in st.session_state["history"]:
-            if h["topic"] == st.session_state["topic"] and h["level"] == st.session_state["level"]:
+            if h["topic"] == current_topic and h["level"] == current_level:
                 h["score"] = pct
                 break
-
-        if st.button("Retake quiz", type="primary"):
-            st.session_state["quiz"] = None
-            st.session_state["quiz_answers"] = {}
-            st.session_state["quiz_submitted"] = False
-            st.rerun()
 
     # ── No quiz yet: show Take quiz button ────────────────────────────────────
     elif st.session_state.get("quiz") is None:
