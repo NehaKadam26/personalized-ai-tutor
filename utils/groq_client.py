@@ -3,11 +3,12 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 from utils.prompts import get_lesson_prompt, get_quiz_prompt, get_explanation_prompt
+import streamlit as st
 
 load_dotenv()
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-MODEL = "llama-3.3-70b-versatile"
+api_key = st.secrets.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+client = Groq(api_key=api_key)
 
 
 def generate_lesson(topic: str, level: str = "beginner") -> str:
