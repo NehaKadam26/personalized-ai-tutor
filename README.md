@@ -1,14 +1,10 @@
 # 🎓 Personalized AI Tutor
 
-> Generate structured lessons, take AI-powered quizzes, and get instant feedback — all tailored to your level.
+Personalized AI Tutor is a full-stack LLM application that turns any topic into a structured learning experience. Built with Groq's LLaMA 3.3-70b, it generates lessons calibrated to your skill level, quizzes you on the content, explains your mistakes factually, and adapts the difficulty based on your performance.
 
 ![Home](assets/home.png)
 
----
-
-## Overview
-
-Personalized AI Tutor is a full-stack LLM application that turns any topic into a structured learning experience. Built with Groq's LLaMA 3.3-70b, it generates lessons calibrated to your skill level, quizzes you on the content, explains your mistakes factually, and adapts the difficulty based on your performance.
+🌐 **Live Demo — [personalized-ai-tutor-26.streamlit.app](https://personalized-ai-tutor-26.streamlit.app)**
 
 ---
 
@@ -32,6 +28,22 @@ Personalized AI Tutor is a full-stack LLM application that turns any topic into 
 | Deployment | Streamlit Cloud |
 | Language | Python 3 |
 
+---
+
+## 📁 Project Structure
+```
+personalized-ai-tutor/
+├── app.py                  # Main Streamlit app
+├── utils/
+│   ├── __init__.py
+│   ├── groq_client.py      # Groq API calls
+│   └── prompts.py          # Prompt templates
+├── assets/                 # App screenshots
+├── .env                    # API key (not committed)
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
 ---
 
 ## 📸 Screenshots
@@ -74,9 +86,3 @@ echo "GROQ_API_KEY=your_key_here" > .env
 ```bash
 streamlit run app.py
 ```
-
----
-
-## 🌐 Live Demo
-
-**[personalized-ai-tutor-26.streamlit.app](https://personalized-ai-tutor-26.streamlit.app)**
