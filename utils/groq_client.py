@@ -9,6 +9,7 @@ load_dotenv()
 
 api_key = st.secrets.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
 client = Groq(api_key=api_key)
+MODEL = "llama-3.3-70b-versatile"
 
 
 def generate_lesson(topic: str, level: str = "beginner") -> str:
